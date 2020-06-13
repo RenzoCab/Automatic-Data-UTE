@@ -1,0 +1,120 @@
+\let\mypdfximage\pdfximage
+\def\pdfximage{\immediate\mypdfximage}
+
+\documentclass[12pt]{article}
+\usepackage[table]{xcolor}
+\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage{tcolorbox}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{fmtcount}
+\usepackage{listings}
+\usepackage{blkarray}
+\usepackage{float}
+\usepackage{bm}
+\usepackage{subfigure}
+\usepackage{booktabs}
+\usepackage[maxfloats=256]{morefloats}
+\usepackage{siunitx}
+\usepackage{forloop}
+%\usepackage[space]{grffile}
+
+% To do computations with the counters:
+\usepackage{calc}
+
+\usepackage{geometry}
+\geometry{a4paper,
+          left=            5mm,
+          right=           5mm,
+          top=             15mm,
+          bottom=          25mm,
+          heightrounded}
+
+\maxdeadcycles=10000
+
+\setcounter{secnumdepth}{5}
+\setcounter{tocdepth}{5}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{proposition}
+\newtheorem{exmp}{Example}[section]\newtheorem{definition}{Definition}[section]
+\newtheorem{remark}{Remark}
+\newtheorem{ex}{Exercise}
+\theoremstyle{definition}
+\theoremstyle{remark}
+\bibliographystyle{elsarticle-num}
+
+\DeclareMathOperator{\sinc}{sinc}
+\newcommand{\RNum}[1]{\uppercase\expandafter{\romannumeral #1\relax}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\matindex}[1]{\mbox{\scriptsize#1}}
+\newcommand{\V}{\mathbb{V}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\prob}{\mathbb{P}}
+\newcommand{\Date}{This text will change :D}
+\newcommand{\DateDay}{This text will change :(}
+\newcommand{\DateMonth}{This text will change :)}
+\newcommand{\mysize}{0.28}
+\newcommand{\mysizeTwo}{0.20}
+
+
+\lstset{numbers=left, numberstyle=\tiny, stepnumber=1, numbersep=5pt}
+
+\begin{document}
+\title{ADME and UTE:\\
+Real Wind Power Production\\
+and Forecast (MTLOG 0100)}
+%\author{Renzo Miguel Caballero Rosas} 
+\maketitle
+
+\begin{figure}[ht!]
+\centering
+{\includegraphics[width=0.48\columnwidth]{1.eps}}\quad
+{\includegraphics[width=0.48\columnwidth]{2.eps}}\\
+\quad\\
+\quad\\
+{\includegraphics[width=0.48\columnwidth]{3.eps}}\quad
+{\includegraphics[width=0.48\columnwidth]{4.eps}}
+\end{figure}
+
+\newcounter{i}
+\newcounter{j}
+
+\forloop{i}{0}{\value{i} < 60}{
+
+%\setcounter{j}{7*(\value{i}-1)+1}
+
+
+\begin{figure}[ht!]
+\centering
+\setcounter{j}{\value{i}*6+5}
+{\includegraphics[width=0.48\columnwidth]{\arabic{j}.eps}}\quad
+\setcounter{j}{\value{i}*6+6}
+{\includegraphics[width=0.48\columnwidth]{\arabic{j}.eps}}\\
+\quad\\
+\quad\\
+\setcounter{j}{\value{i}*6+7}
+{\includegraphics[width=0.48\columnwidth]{\arabic{j}.eps}}\quad
+\setcounter{j}{\value{i}*6+8}
+{\includegraphics[width=0.48\columnwidth]{\arabic{j}.eps}}\\
+\quad\\
+\quad\\
+\setcounter{j}{\value{i}*6+9}
+{\includegraphics[width=0.48\columnwidth]{\arabic{j}.eps}}\quad
+\setcounter{j}{\value{i}*6+10}
+{\includegraphics[width=0.48\columnwidth]{\arabic{j}.eps}}
+\end{figure}
+
+}
+
+\end{document}

@@ -1,0 +1,66 @@
+\PassOptionsToPackage{table}{xcolor}
+\documentclass[aspectratio=169]{beamer}\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[english]{babel}
+\usepackage{color}
+\usepackage{amsmath,mathtools}
+\usepackage{booktabs}
+\usepackage{mathptmx}
+\usepackage[11pt]{moresize}
+\usepackage{hyperref}
+\usepackage{commath}
+\usepackage{bm}
+\usepackage{subfigure}
+\usepackage{siunitx}
+
+\setbeamertemplate{navigation symbols}{}
+\setbeamersize{text margin left=5mm,text margin right=5mm}
+\setbeamertemplate{caption}[numbered]
+\addtobeamertemplate{navigation symbols}{}{
+\usebeamerfont{footline}
+\usebeamercolor[fg]{footline}
+\hspace{1em}
+\insertframenumber/\inserttotalframenumber}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\V}{\mathbb{V}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\T}{\mathbb{T}}
+\newcommand{\I}{\mathbb{I}}
+
+\title{Wind Power Data:\\
+Histograms for different transformations}
+\subtitle{Renzo Miguel Caballero Rosas}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}\frametitle{Data points:}
+\begin{figure}[ht!]
+\centering
+{\includegraphics[width=0.32\columnwidth]{./forPaper/Gauss_Approx_Measurements_Error.eps}}
+{\includegraphics[width=0.32\columnwidth]{./forPaper/Gauss_Approx_Measurements_Lamperti.eps}}
+{\includegraphics[width=0.32\columnwidth]{./forPaper/Gauss_Approx_Measurements_NT.eps}}
+\end{figure}
+Here we can see the histograms for the data points. {\color{blue}In blue}, the error measutrements, corresponding to $V(t_i)=X(t_i)-p(t_i)$. {\color{orange}In orange}, the Lamperti transform $\psi(V(t_i))$. Finally, {\color{green}in green}, the A\"it-Sahilia's transform.
+\end{frame}
+
+\begin{frame}\frametitle{Data transitions:}
+\begin{figure}[ht!]
+\centering
+{\includegraphics[width=0.32\columnwidth]{./forPaper/Gauss_Approx_Err.eps}}
+{\includegraphics[width=0.32\columnwidth]{./forPaper/Gauss_Approx_Lam.eps}}
+{\includegraphics[width=0.32\columnwidth]{./forPaper/Gauss_Approx_NT.eps}}
+\end{figure}
+Here we see the transitions' histograms for each process described in the previous slide.
+\end{frame}
+
+\end{document}

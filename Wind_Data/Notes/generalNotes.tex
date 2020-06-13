@@ -1,0 +1,154 @@
+\documentclass[12pt]{article}
+\usepackage[table]{xcolor}
+\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage[english]{babel}
+\usepackage{tcolorbox}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{blkarray}
+\usepackage{float}
+\usepackage{bm}
+\usepackage{subfigure}
+\usepackage{booktabs}
+\usepackage{siunitx}
+
+\setcounter{secnumdepth}{5}
+\setcounter{tocdepth}{5}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{proposition}
+\newtheorem{exmp}{Example}[section]\newtheorem{definition}{Definition}[section]
+\newtheorem{remark}{Remark}
+\newtheorem{ex}{Exercise}
+\theoremstyle{definition}
+\theoremstyle{remark}
+\bibliographystyle{elsarticle-num}
+
+\DeclareMathOperator{\sinc}{sinc}
+\newcommand{\RNum}[1]{\uppercase\expandafter{\romannumeral #1\relax}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\matindex}[1]{\mbox{\scriptsize#1}}
+\newcommand{\V}{\mathbb{V}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\prob}{\mathbb{P}}
+
+\lstset{numbers=left, numberstyle=\tiny, stepnumber=1, numbersep=5pt}
+
+\begin{document}
+\title{Some important notes:}
+\author{Renzo Miguel Caballero Rosas} 
+\maketitle
+
+\subsection*{With respect to all the wind data download:}
+
+We have all the files in the super folder:
+\begin{enumerate}
+
+\item Wind\_Generation-Forecast\_1.ipynb.
+\item Wind\_Generation-Forecast\_2.ipynb.
+\item Wind\_Generation-Forecast\_3.ipynb.
+\item Wind\_Generation-Forecast\_All.ipynb.
+\item Wind\_Data\_1.csv.
+\item Wind\_Data\_2.csv.
+\item Wind\_Data\_3.csv.
+
+\end{enumerate}
+However, I will create new Python files to download all the needed data (I will start working on it the day 14/01/2020. The date is important because the webpage changes over time. It is \url{https://apps.ute.com.uy/SgePublico/ConsPrevGeneracioEolica.aspx}).\\
+The files have the main name \textbf{Wind\_Generation-Forecast\_Downloader.ipynb}. To the name, we add the data and source to differentiate between different files.
+
+\subsection*{Making it automatic:}
+
+Each time we send the cURL, we receive the data for the next three days. For example, if we send a request for the day "03/12/2019" with the starting time "0700" (corresponding to 01:00 hrs), we would receive:
+\begin{enumerate}
+\item[$\bullet$] 0700 - 03/12/2019
+\item[$\bullet$] 0800 - 03/12/2019
+\item[$\bullet$] 0900 - 03/12/2019
+\item[$\bullet$] $\dots$
+\item[$\bullet$] 0500 - 06/12/2019
+\item[$\bullet$] 0600 - 06/12/2019
+\end{enumerate}
+Notice that the last point of data is three days later, with one hour less. This is the date we will check to ensure we have or not some data points.
+
+\subsection*{Initial document:}
+
+For the script to work , we need to create a \textbf{.csv} file with the next table inside:
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|}
+\toprule
+{\color{red}*empty*} & {\color{red}*empty*} & Starting\_Time & Min\_ConfInt &  Max\_ConfInt & Forecast & Real \\
+\midrule
+\end{tabular}
+\end{table}
+All the data will be written below (in the next rows). If we open this file with a text editor, it should have written:\\
+,,Starting\_Time,Min\_ConfInt,Max\_ConfInt,Forecast,Real{\color{red}*end of line*}\\
+Notice the end of line character {\color{red}*end of line*}. This means that it is necessary to press \textbf{Enter} after we finish writing the sentence.
+
+\subsection*{What is the data?}
+
+We have real production from 3 of November 2016 until today, with a frequency of 6 measurements per hour.\\
+For the forecasts, we have three companies: AWSTP, MTLOG, and UTEP5. Each one with a different starting day:
+\begin{enumerate}
+
+\item AWSTP $\implies$ 23/04/2019 until today.
+\item MTLOG $\implies$ 08/01/2016 until today.
+\item UTEP5 $\implies$ 05/07/2017 until today.
+
+\end{enumerate}
+Each company provides a 72 hrs forecast with a frequency of one measurement per hour. This forecasts are provided four times a day, at the times 0100, 0700, 1300, and 1900.
+
+\subsection*{Something is wrong?}
+
+For MTLOG and UTEP5, all the data is from 0100, even the ones with different names. I have to download it all correctly later.
+
+\subsection*{Matlab files:}
+
+\begin{enumerate}
+
+\item[$\bullet$] \textbf{dataManagment.m}: It loads all the .csv and .ods files, and creates lists and cells with the paths. All this information is stored in .m files.
+
+\item[$\bullet$] \textbf{dataConditioner.m}: It is to check the data, it has inside some verification tests.
+
+\end{enumerate}
+
+\subsection*{What are the plots?}
+
+We have plots and data corresponding to MTLOG 0100 forecast and ADME real production. We have for 01:00 to 22:00 hrs, and for 01:00 to 07:00 hrs.
+
+\subsection*{About {\color{red}someResults}}
+
+In this folder, we have most of the plots and LaTex files that explain visually what the data is. Inside we find:
+
+\begin{enumerate}
+
+\item[$\bullet$] The PDF \textbf{windData.pdf}: In these slides, we explain some of the main issues of the raw data. In particular, we show the effect of the artificial intervention in the generation and a delay in the data.
+
+\item[$\bullet$] Folder \textbf{MTLOG\_0100\_2019}: In this folder, we have the plot for the 365 days fo the year. We show how applying a delay in ADME, the real production from both, ADME and UTE, match. We plot from 01:00 to 22:00 hrs.
+
+\item[$\bullet$] Folder \textbf{histograms}: In this folder, we show how given some criteria, we remove the days where artificial intervention was done.
+
+\item[$\bullet$] Folder \textbf{dataToUse}:In this folder, we show for the 365 days the first 6 hours of real ADME production (with the delay correction) and the forecast.
+
+\item[$\bullet$] Folder \textbf{dataToUse\_24}:In this folder, we have the plot for the 365 days fo the year. We show how applying a delay in ADME, the real production from both, ADME and UTE, match. We plot from 01:00 to 01:00 hrs of the next day.
+
+\item[$\bullet$] Folder \textbf{dataToUse\_24\_corrected}:In this folder, we only show the days with no artificial effect. Also, all the plots are normalized. ADME is corrected.
+
+\item[$\bullet$] Folder \textbf{final}:In this folder, we show and explain precisely the data that will be used. The file allData.pdf contains all the information and statistical analysis of the data.
+
+\end{enumerate}
+
+\section*{19/04/2020: All data for the paper:}
+
+We will create more datasets to be used in the paper. For now, we are using only \textbf{MTLOG\_0100}. However, we need also \textbf{AWSTP\_0100} and \textbf{UTEP5\_0100}.\\
+From \textbf{dataConditiones.m}, we copy cells (6), (7), (8) and (10), and write alternative versions (adding -B and -C to the cell number) with the other data.
+
+\end{document}
