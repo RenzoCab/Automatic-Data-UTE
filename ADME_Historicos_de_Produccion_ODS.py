@@ -14,7 +14,7 @@ import webbrowser
 # KAUST: King Abdullah University of Science and Technology
 # email: renzo.caballerorosas@kaust.edu.sa caballerorenzo@hotmail.com
 # Website: None.
-# August 2019; Last revision: 16/08/2019.
+# August 2019; Last revision: 30/08/2019.
 
 
 # In[2]:
@@ -42,7 +42,7 @@ def ADME_Historicos(date): # https://pronos.adme.com.uy
         if not file_name in files:
             sess = requests.Session()
             sess.get(url1) # This is to call the webpage before pressing the button download.
-            response = requests.get('https://pronos.adme.com.uy/ods/datos_gen_int.ods')
+            response = requests.get('https://pronos.adme.com.uy/ods/datos_gen_int_10.ods')
             open(file_path, "wb").write(response.content)
             print(date)
             
@@ -61,4 +61,65 @@ while date.strftime("%d/%m/%Y") != twoDaysAgo.strftime("%d/%m/%Y"):
     ADME_Historicos(date)
         
     date = date + timedelta(days=1)
+
+
+# In[ ]:
+
+
+# Here we can choose which day to download:
+
+# date = datetime.datetime(2017,2,11)
+
+# date_next = date + timedelta(days=1)
+
+# url1 = ['https://pronos.adme.com.uy/gpf.php?fecha_ini=',str(date.day),'%2F',str(date.month),'%2F',str(date.year),
+#         '&fecha_fin=',str(date_next.day),'%2F',str(date_next.month),'%2F',str(date_next.year),'&send=MOSTRAR']
+# url1 = "".join(url1)
+
+# file_name = [date.strftime("%Y%m%d"),'.ods']
+# # The real format of the files is .ods.
+# file_name = "".join(file_name) # The name to the file which we will save.
+# file_path = ['./ADME_Historicos/',file_name]
+# file_path = "".join(file_path)
+# directory = os.path.dirname(file_path)
+
+# if not os.path.exists(directory):
+#     os.makedirs(directory)
+
+# sess = requests.Session()
+# sess.get(url1) # This is to call the webpage before pressing the button download.
+# response = requests.get('https://pronos.adme.com.uy/ods/datos_gen_int.ods')
+# open(file_path, "wb").write(response.content)
+# print(date)
+
+
+# In[5]:
+
+
+# Here we can choose which day to download: (14/06/2020)
+
+# date = datetime.datetime(2020,2,25)
+
+# date_next = date + timedelta(days=1)
+
+# url1 = ['https://pronos.adme.com.uy/gpf.php?fecha_ini=',str(date.day),'%2F',str(date.month),'%2F',str(date.year),
+#         '&fecha_fin=',str(date_next.day),'%2F',str(date_next.month),'%2F',str(date_next.year),'&send=MOSTRAR']
+# url1 = "".join(url1)
+
+# file_name = [date.strftime("%Y%m%d"),'.ods']
+# # The real format of the files is .ods.
+# file_name = "".join(file_name) # The name to the file which we will save.
+# file_path = ['./ADME_Historicos/',file_name]
+# file_path = "".join(file_path)
+# directory = os.path.dirname(file_path)
+
+# if not os.path.exists(directory):
+#     os.makedirs(directory)
+
+# sess = requests.Session()
+# sess.get(url1) # This is to call the webpage before pressing the button download.
+# print(url1)
+# response = requests.get('https://pronos.adme.com.uy/ods/datos_gen_int_10.ods')
+# open(file_path, "wb").write(response.content)
+# print(date)
 
