@@ -1,0 +1,195 @@
+\let\mypdfximage\pdfximage
+\def\pdfximage{\immediate\mypdfximage}
+
+\documentclass[12pt]{article}
+\usepackage[table]{xcolor}
+\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage{tcolorbox}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{fmtcount}
+\usepackage{listings}
+\usepackage{blkarray}
+\usepackage{float}
+\usepackage{bm}
+\usepackage{subfigure}
+\usepackage{booktabs}
+\usepackage[maxfloats=256]{morefloats}
+\usepackage{siunitx}
+\usepackage{forloop}
+%\usepackage[space]{grffile}
+
+% To do computations with the counters:
+\usepackage{calc}
+
+\usepackage{geometry}
+\geometry{a4paper,
+          left=            10mm,
+          right=           10mm,
+          top=             15mm,
+          bottom=          25mm,
+          heightrounded}
+
+\maxdeadcycles=10000
+
+\setcounter{secnumdepth}{5}
+\setcounter{tocdepth}{5}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{proposition}
+\newtheorem{exmp}{Example}[section]\newtheorem{definition}{Definition}[section]
+\newtheorem{remark}{Remark}
+\newtheorem{ex}{Exercise}
+\theoremstyle{definition}
+\theoremstyle{remark}
+\bibliographystyle{elsarticle-num}
+
+\DeclareMathOperator{\sinc}{sinc}
+\newcommand{\RNum}[1]{\uppercase\expandafter{\romannumeral #1\relax}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\matindex}[1]{\mbox{\scriptsize#1}}
+\newcommand{\V}{\mathbb{V}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\prob}{\mathbb{P}}
+\newcommand{\Date}{This text will change :D}
+\newcommand{\DateDay}{This text will change :(}
+\newcommand{\DateMonth}{This text will change :)}
+\newcommand{\mysize}{0.28}
+\newcommand{\mysizeTwo}{0.20}
+
+
+\lstset{numbers=left, numberstyle=\tiny, stepnumber=1, numbersep=5pt}
+
+\begin{document}
+\title{Supplementary Material}
+\author{Renzo Miguel Caballero Rosas\\
+\url{Renzo.CaballeroRosas@kaust.edu.sa}\\
+\url{CaballeroRenzo@hotmail.com}\\
+\url{CaballeroRen@gmail.com}} 
+\maketitle
+
+\subsection*{Data information:}
+
+Normalization: $P_{max}=\SI{1474}{\mega\watt}$, $T=\SI{24}{\hour}$. Most modified days were removed, we will work with 255 days.
+
+\begin{enumerate}
+\item[$\bullet$] MTLOG\_0100\_and\_Real\_24h\_Training\_Data.mat.
+\item[$\bullet$] MTLOG\_0100\_and\_Real\_24h\_Testing\_Data.mat.
+\item[$\bullet$] MTLOG\_0100\_and\_Real\_24h\_Complete\_Data.mat.
+\item[$\bullet$] Table\_Training\_Complete.csv.
+\item[$\bullet$] Table\_Testing\_Complete.csv.
+\item[$\bullet$] Table\_Complete.csv.
+\end{enumerate}
+
+\pagebreak 
+
+\subsection*{Seasonality effect:}
+
+To guaranty an homogeneous year, we study the Mean Absolute Error (MAE) for the forecast for each day. In Figure (\ref{plot1}), we can see that there are no big variations along the year.
+
+\begin{figure}[ht!]
+\centering
+{\includegraphics[width=0.8\columnwidth]{seasons.eps}}
+\caption{Daily MAE computed along the 255 days that will be used in the training and testing.}\label{plot1}
+\end{figure}
+To compute the vector that we are piloting, we realize the operation
+\begin{equation*}
+\hat{V}(j) =\frac{1}{145} \sum_{i=1}^{145}|V(i,j)|\quad\text{where}\quad j\in\{1,\dots,255\}.
+\end{equation*}
+Recall that $V(i,j)$ is the normalized error between the ADME real production and the UTE forecast at time $i$ and for the day $j$.
+
+
+\pagebreak 
+
+\subsection*{Hourly effect:}
+
+We want to see the error throughout the day. We compute the Mean Absolute Error (MAE) for the forecast for each measurement during the day. In Figure (\ref{plot2}), we can see that the error is greater in the mornings. Notice that as we advance in the time, the forecast becomes less accurate.
+
+\begin{figure}[ht!]
+\centering
+{\includegraphics[width=0.8\columnwidth]{hourlyEffect.eps}}
+\caption{MAE along the day.}\label{plot2}
+\end{figure}
+
+To compute the vector that we are piloting, we realize the operation
+\begin{equation*}
+\hat{V}(i) =\frac{1}{255} \sum_{j=1}^{255}|V(i,j)|\quad\text{where}\quad i\in\{1,\dots,145\}.
+\end{equation*}
+Recall that $V(i,j)$ is the normalized error between the ADME real production and the UTE forecast at time $i$ and for the day $j$.\\
+\quad\\
+{\color{red} We can see that the error depends on the time. For this reason, when we create the baches, we need to sample days and no random transitions. Otherwise, we may choose no representative samples.}
+
+\pagebreak 
+
+%\subsection*{Forecast Error Vs Forecast:}
+%
+%\begin{figure}[ht!]
+%\centering
+%{\includegraphics[width=0.6\columnwidth]{mean_error.eps}}\\
+%\quad\\
+%\quad\\
+%{\includegraphics[width=0.6\columnwidth]{mean_abs_error.eps}}
+%\end{figure}
+%
+%The code to create this is in:\\
+%\textbf{Dropbox/Probabilistic\_Wind\_Power\_Forecasting/MATLAB\_Files/errorVsForecast.m}.\\
+%\quad\\
+%What we are seeing is the mean error and mean absolute error as a function of the forecast. This is, for each interval with length 0.1 (i.e., [0,0.1), [0.1,0.2), etc.), we average all the errors corresponding to measurement where the forecast was in that intervals, and after we average over the number of elements in each interval.
+%
+%\pagebreak 
+
+\subsection*{Forecast Error Vs Forecast:}
+
+\begin{figure}[ht!]
+\centering
+{\includegraphics[width=0.9\columnwidth]{error_over_forecast.eps}}
+\end{figure}
+
+The code to create this is in:\\
+\textbf{Dropbox/Probabilistic\_Wind\_Power\_Forecasting/MATLAB\_Files/errorVsForecast.m}.\\
+\quad\\
+Here we plot all pairs $(p_t,V_t)$ for all training data 2019.
+\pagebreak 
+
+%\begin{figure}[ht!]
+%\centering
+%{\includegraphics[width=0.48\columnwidth]{1.eps}}\quad
+%{\includegraphics[width=0.48\columnwidth]{2.eps}}\\
+%\quad\\
+%\quad\\
+%{\includegraphics[width=0.48\columnwidth]{3.eps}}\quad
+%{\includegraphics[width=0.48\columnwidth]{4.eps}}
+%\end{figure}
+
+%\newcounter{i}
+%\newcounter{j}
+%
+%\forloop{i}{0}{\value{i} < 255}{
+%
+%\begin{figure}[ht!]
+%\centering
+%\setcounter{j}{\value{i}*4+1}
+%{\includegraphics[width=0.46\columnwidth]{\arabic{j}.eps}}\quad
+%\setcounter{j}{\value{i}*4+2}
+%{\includegraphics[width=0.46\columnwidth]{\arabic{j}.eps}}\\
+%\quad\\
+%\quad\\
+%\setcounter{j}{\value{i}*4+3}
+%{\includegraphics[width=0.46\columnwidth]{\arabic{j}.eps}}\quad
+%\setcounter{j}{\value{i}*4+4}
+%{\includegraphics[width=0.46\columnwidth]{\arabic{j}.eps}}
+%\end{figure}
+%
+%}
+
+\end{document}

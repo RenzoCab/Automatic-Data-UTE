@@ -324,7 +324,7 @@ for i = 1:length(real)
     
 end
 
-%% (6) Preparing the data that we will use (24 hrs) (I corrected the delay):
+%% (6)-A Preparing the data that we will use (24 hrs) (I corrected the delay):
 
 % It is needed to run the first cell before running this one.
 MTLOG_0100 = allTablesData{5};
@@ -522,7 +522,7 @@ end
 
 save('UTEP5_0100_and_Real_24h.mat','Table');
 
-%% (7) We load the data from (6) to check and save all the plots:
+%% (7)-A We load the data from (6) to check and save all the plots:
 
 load('MTLOG_0100_and_Real_24h.mat');
 
@@ -627,7 +627,7 @@ for i = 1:length(real_adme)
     
 end
 
-%% (8) Statistical analysis UTE Vs. ADME real productions:
+%% (8)-A Statistical analysis UTE Vs. ADME real productions:
 
 close all;
 clear all;
@@ -844,7 +844,7 @@ for i = 1:length(real_adme)
     
 end
 
-%% (10) Final process of the correct data created in (8):
+%% (10)-A Final process of the correct data created in (8)-A:
 
 close all;
 clear all;
