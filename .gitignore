@@ -6,6 +6,7 @@
 !readme.md
 !*.tex
 !*.m
+!*.md
 !*.py
 !*.ipynb
 !*/
